@@ -19,7 +19,8 @@ using namespace std;
 
 int main(int argc, char **argv){
 
-    ros::init(argc, argv, "lab_usb_9axisimu_driver");
+    const string node_name = "lab_usb_9axisimu_driver";
+    ros::init(argc, argv, node_name);
     ros::NodeHandle n;
 
     string port,frame_id;
@@ -40,6 +41,8 @@ int main(int argc, char **argv){
     double magnetic_field_stdev;
 
     n.param("port", port,string("/dev/ttyACM0"));
+    n.getParam(node_name + "/port", port);
+
     n.param("frame_id", frame_id,string("imu_link"));
     n.param("linear_acceleration_stdev", linear_acceleration_stdev, 0.023145);
     n.param("angular_velocity_stdev", angular_velocity_stdev, 0.0010621);
